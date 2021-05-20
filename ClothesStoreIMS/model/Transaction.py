@@ -26,16 +26,26 @@ class Transaction:
             self.__id = int(id)
 
     def setCustomer(self, customer):
-        self.__customer = customer
+        if isinstance(customer, Customer):
+            self.__customer = customer
+        else:
+            self.__customer = ""
 
     def setEmployee(self, employee):
-        self.__employee = employee
+        if isinstance(employee, Employee):
+            self.__employee = employee
+        else:
+            self.__employee = ""
 
     def setItem(self, item):
-        self.__item = item
+        if isinstance(item, Item):
+            self.__item = item
+        else:
+            self.__item = ""
 
     def setTotalPrice(self):
-        self.__totalPrice = self.__item.getPrice() * self.__number
+        if isinstance(self.__item, Item):
+            self.__totalPrice = self.__item.getPrice() * self.__number
 
     def setNumber(self, number):
         if len(number) > 0:
