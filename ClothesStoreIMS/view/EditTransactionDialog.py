@@ -101,7 +101,7 @@ class EditTransactionDialog:
         if len(customerId) > 0 and len(itemId) > 0 and len(number) > 0 and len(employeeId) > 0:
             try:
                 customer = Customer(customerId, "", "", "")
-                employee = Employee(employeeId, "", "", "")
+                employee = Employee(employeeId, "", "", "", "")
                 item = Item(itemId, "", "", "")
                 if self.__customers.__contains__(customer) and \
                         self.__items.__contains__(item) and \
@@ -130,10 +130,10 @@ class EditTransactionDialog:
         self.__txtId.insert(0, self.__transaction.getId())
         self.__txtId.config(state="readonly")
         self.__txtCustomerId.delete(0, tk.END)
-        self.__txtCustomerId.insert(0, "")
+        self.__txtCustomerId.insert(0, self.__transaction.getCustomer().getId())
         self.__txtItemId.delete(0, tk.END)
-        self.__txtItemId.insert(0, "")
+        self.__txtItemId.insert(0, self.__transaction.getItem().getId())
         self.__txtNumber.delete(0, tk.END)
-        self.__txtNumber.insert(0, "")
+        self.__txtNumber.insert(0, self.__transaction.getNumber())
         self.__txtEmployeeId.delete(0, tk.END)
-        self.__txtEmployeeId.insert(0, "")
+        self.__txtEmployeeId.insert(0, self.__transaction.getEmployee().getId())

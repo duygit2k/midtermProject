@@ -350,7 +350,7 @@ class HomeFrm:
         self.__tblTransaction["columns"] = ("ID", "Customer ID",
                                             "Customer Name", "Item ID",
                                             "Item Name", "Number",
-                                            "Price",
+                                            "Total Price",
                                             "Employee ID",
                                             "Employee Name")
         self.__tblTransaction.column("#0", width=0, stretch=NO)
@@ -362,7 +362,7 @@ class HomeFrm:
         self.__tblTransaction.column("Number", anchor=CENTER, width=55)
         self.__tblTransaction.column("Employee ID", anchor=CENTER, width=50)
         self.__tblTransaction.column("Employee Name", anchor=CENTER, width=120)
-        self.__tblTransaction.column("Price", anchor=CENTER, width=120)
+        self.__tblTransaction.column("Total Price", anchor=CENTER, width=120)
         self.__tblTransaction.heading("#0", text="", anchor=W)
         self.__tblTransaction.heading("ID", text="ID", anchor=CENTER)
         self.__tblTransaction.heading("Customer ID", text="CID", anchor=CENTER)
@@ -372,7 +372,7 @@ class HomeFrm:
         self.__tblTransaction.heading("Number", text="Number", anchor=CENTER)
         self.__tblTransaction.heading("Employee ID", text="EID", anchor=CENTER)
         self.__tblTransaction.heading("Employee Name", text="Employee Name", anchor=CENTER)
-        self.__tblTransaction.heading("Price", text="Price", anchor=CENTER)
+        self.__tblTransaction.heading("Total Price", text="Total Price", anchor=CENTER)
 
     # -------------------------------------GENERAL METHODS-------------------------------------
 

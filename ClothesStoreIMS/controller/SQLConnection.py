@@ -89,7 +89,7 @@ class SQLConnection:
 
     def insertTransaction(self, transaction):
         sql = "INSERT INTO transactions (id, customerId, customerName, itemId," \
-              " itemName, number, price, employeeId, employeeName) VALUES" \
+              " itemName, number, totalPrice, employeeId, employeeName) VALUES" \
               " (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
         val = (transaction.getId(), transaction.getCustomer().getId(),
                transaction.getCustomer().getFullName(),
@@ -134,9 +134,11 @@ class SQLConnection:
         self.__database.commit()
 
     def updateEmployee(self, employee):
-        sql = "UPDATE employees SET fullName = %s, address = %s, phoneNumber = %s, salary = %s WHERE id = %s"
+        sql = "UPDATE employees SET fullName = %s, address = %s," \
+              " phoneNumber = %s, salary = %s WHERE id = %s"
         val = (employee.getFullName(), employee.getAddress(),
-               employee.getPhoneNumber(), employee.getSalary(), employee.getId())
+               employee.getPhoneNumber(), employee.getSalary(),
+               employee.getId())
         self.__cursor.execute(sql, val)
         self.__database.commit()
 
@@ -149,7 +151,7 @@ class SQLConnection:
     def updateTransaction(self, transaction):
         sql = "UPDATE transactions SET customerId = %s," \
               " customerName = %s, itemId = %s, itemName = %s," \
-              " number = %s, price = %s, employeeId = %s," \
+              " number = %s, totalPrice = %s, employeeId = %s," \
               " employeeName = %s WHERE id = %s"
         val = (transaction.getCustomer().getId(),
                transaction.getCustomer().getFullName(),
