@@ -95,10 +95,13 @@ class EditEmployeeDialog:
         phoneNumber = self.__txtPhoneNumber.get()
         salary = self.__txtSalary.get()
         if len(fullName) > 0 and len(address) > 0 and len(phoneNumber) > 0:
-            employee = Employee(str(self.__employee.getId()), fullName, address, phoneNumber, salary)
-            self.__parent.editEmployeeCallBack(employee)
-            self.__editEmployeeWindow.destroy()
-            messagebox.showinfo("Success", "Employee information has been edited")
+            try:
+                employee = Employee(str(self.__employee.getId()), fullName, address, phoneNumber, salary)
+                self.__parent.editEmployeeCallBack(employee)
+                self.__editEmployeeWindow.destroy()
+                messagebox.showinfo("Success", "Employee information has been edited")
+            except Exception:
+                messagebox.showerror("Error", "Invalid information format!")
         else:
             messagebox.showerror("Error", "Input fields cannot be left blank!")
 

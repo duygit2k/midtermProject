@@ -87,15 +87,18 @@ class AddCustomerDialog:
         address = self.__txtAddress.get()
         phoneNumber = self.__txtPhoneNumber.get()
         if len(fullName) > 0 and len(address) > 0 and len(phoneNumber) > 0:
-            customer = Person(fullName, address, phoneNumber)
-            if self.__customers.__contains__(customer):
-                messagebox.showerror("Error", "Customer information already exists!")
-            else:
-                customer = Customer("", fullName, address, phoneNumber)
-                customer.fixId()
-                self.__parent.addCustomerCallBack(customer)
-                messagebox.showinfo("Success", "A new customer has been added")
-                self.showDefaultText()
+            try:
+                customer = Person(fullName, address, phoneNumber)
+                if self.__customers.__contains__(customer):
+                    messagebox.showerror("Error", "Customer information already exists!")
+                else:
+                    customer = Customer("", fullName, address, phoneNumber)
+                    customer.fixId()
+                    self.__parent.addCustomerCallBack(customer)
+                    messagebox.showinfo("Success", "A new customer has been added")
+                    self.showDefaultText()
+            except Exception:
+                messagebox.showerror("Error", "Invalid information format!")
         else:
             messagebox.showerror("Error", "Input fields cannot be left blank!")
 

@@ -87,10 +87,13 @@ class EditCustomerDialog:
         address = self.__txtAddress.get()
         phoneNumber = self.__txtPhoneNumber.get()
         if len(fullName) > 0 and len(address) > 0 and len(phoneNumber) > 0:
-            customer = Customer(str(self.__customer.getId()), fullName, address, phoneNumber)
-            self.__parent.editCustomerCallBack(customer)
-            self.__editCustomerWindow.destroy()
-            messagebox.showinfo("Success", "Customer information has been edited")
+            try:
+                customer = Customer(str(self.__customer.getId()), fullName, address, phoneNumber)
+                self.__parent.editCustomerCallBack(customer)
+                self.__editCustomerWindow.destroy()
+                messagebox.showinfo("Success", "Customer information has been edited")
+            except Exception:
+                messagebox.showerror("Error", "Invalid information format!")
         else:
             messagebox.showerror("Error", "Input fields cannot be left blank!")
 

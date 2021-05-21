@@ -87,14 +87,17 @@ class AddItemDialog:
         brand = self.__txtBrand.get()
         price = self.__txtPrice.get()
         if len(name) > 0 and len(brand) > 0 and len(price) > 0:
-            item = Item("", name, brand, price)
-            if self.__items.__contains__(item):
-                messagebox.showerror("Error", "Item information already exists!")
-            else:
-                item.fixId()
-                self.__parent.addItemCallBack(item)
-                messagebox.showinfo("Success", "A new item has been added")
-                self.showDefaultText()
+            try:
+                item = Item("", name, brand, price)
+                if self.__items.__contains__(item):
+                    messagebox.showerror("Error", "Item information already exists!")
+                else:
+                    item.fixId()
+                    self.__parent.addItemCallBack(item)
+                    messagebox.showinfo("Success", "A new item has been added")
+                    self.showDefaultText()
+            except Exception:
+                messagebox.showerror("Error", "Invalid information format!")
         else:
             messagebox.showerror("Error", "Input fields cannot be left blank!")
 

@@ -86,10 +86,13 @@ class EditItemDialog:
         brand = self.__txtBrand.get()
         price = self.__txtPrice.get()
         if len(name) > 0 and len(brand) > 0 and len(price) > 0:
-            item = Item(str(self.__item.getId()), name, brand, price)
-            self.__parent.editItemCallBack(item)
-            self.__editItemWindow.destroy()
-            messagebox.showinfo("Success", "Item information has been edited")
+            try:
+                item = Item(str(self.__item.getId()), name, brand, price)
+                self.__parent.editItemCallBack(item)
+                self.__editItemWindow.destroy()
+                messagebox.showinfo("Success", "Item information has been edited")
+            except Exception:
+                messagebox.showerror("Error", "Invalid information format!")
         else:
             messagebox.showerror("Error", "Input fields cannot be left blank!")
 

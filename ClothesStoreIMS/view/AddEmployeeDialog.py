@@ -94,15 +94,18 @@ class AddEmployeeDialog:
         phoneNumber = self.__txtPhoneNumber.get()
         salary = self.__txtSalary.get()
         if len(fullName) > 0 and len(address) > 0 and len(phoneNumber) > 0:
-            employee = Person(fullName, address, phoneNumber)
-            if self.__employees.__contains__(employee):
-                messagebox.showerror("Error", "Employee information already exists!")
-            else:
-                employee = Employee("", fullName, address, phoneNumber, salary)
-                employee.fixId()
-                self.__parent.addEmployeeCallBack(employee)
-                messagebox.showinfo("Success", "A new customer has been added")
-                self.showDefaultText()
+            try:
+                employee = Person(fullName, address, phoneNumber)
+                if self.__employees.__contains__(employee):
+                    messagebox.showerror("Error", "Employee information already exists!")
+                else:
+                    employee = Employee("", fullName, address, phoneNumber, salary)
+                    employee.fixId()
+                    self.__parent.addEmployeeCallBack(employee)
+                    messagebox.showinfo("Success", "A new customer has been added")
+                    self.showDefaultText()
+            except Exception:
+                messagebox.showerror("Error", "Invalid information format!")
         else:
             messagebox.showerror("Error", "Input fields cannot be left blank!")
 

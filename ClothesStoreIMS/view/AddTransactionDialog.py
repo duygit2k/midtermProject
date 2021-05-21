@@ -41,7 +41,7 @@ class AddTransactionDialog:
     def setWindow(self):
         self.__addTransactionWindow = tk.Toplevel(self.__rootWindow)
         self.__addTransactionWindow.config(bg="aliceblue")
-        self.__addTransactionWindow.title("Add Customer")
+        self.__addTransactionWindow.title("Add Transaction")
         self.__topLabel = tk.Label(self.__addTransactionWindow,
                                    height=3,
                                    font=("Arial", 20),
