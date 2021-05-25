@@ -384,119 +384,99 @@ class HomeFrm:
     def searchByIdCallBack(self, id, table):
         if table == 1:
             self.removeAllCustomers()
-            customer = Customer(id, "", "", "")
-            if self.__customers.__contains__(customer):
-                index = self.__customers.index(customer)
-                self.showCustomer(self.__customers[index], 0)
+            self.__customers = self.__sqlConnection.searchCustomerById(id)
+            self.showCustomers(self.__customers)
         elif table == 2:
             self.removeAllEmployees()
-            employee = Employee(id, "", "", "", "")
-            if self.__employees.__contains__(employee):
-                index = self.__employees.index(employee)
-                self.showEmployee(self.__employees[index], 0)
+            self.__employees = self.__sqlConnection.searchEmployeeById(id)
+            self.showEmployees(self.__employees)
         elif table == 3:
             self.removeAllItems()
-            item = Item(id, "", "", "")
-            if self.__items.__contains__(item):
-                index = self.__items.index(item)
-                self.showItem(self.__items[index], 0)
+            self.__items = self.__sqlConnection.searchItemById(id)
+            self.showItems(self.__items)
         else:
             self.removeAllTransactions()
-            transaction = Transaction(id, "", "", "", "")
-            if self.__transactions.__contains__(transaction):
-                index = self.__transactions.index(transaction)
-                self.showTransaction(self.__transactions[index], 0)
+            self.__transactions = self.__sqlConnection.searchTransactionById(id)
+            self.showTransactions(self.__transactions)
 
     def searchByFullNameCallBack(self, fullName, table):
-        data = []
         if table == 1:
             self.removeAllCustomers()
-            for customer in self.__customers:
-                if fullName in customer.getFullName():
-                    data.append(customer)
-            self.showCustomers(data)
-            messagebox.showinfo("Message", "Found " + str(len(data)) + " results!")
+            self.__customers = self.__sqlConnection.searchCustomerByFullName(fullName)
+            self.showCustomers(self.__customers)
+            messagebox.showinfo("Message", "Found " + str(len(self.__customers)) + " results!")
         elif table == 2:
             self.removeAllEmployees()
-            for employee in self.__employees:
-                if fullName in employee.getFullName():
-                    data.append(employee)
-            self.showEmployees(data)
-            messagebox.showinfo("Message", "Found " + str(len(data)) + " results!")
+            self.__employees = self.__sqlConnection.searchEmployeeByFullName(fullName)
+            self.showEmployees(self.__employees)
+            messagebox.showinfo("Message", "Found " + str(len(self.__employees)) + " results!")
 
     def searchByAddressCallBack(self, address, table):
-        data = []
         if table == 1:
             self.removeAllCustomers()
-            for customer in self.__customers:
-                if address in customer.getAddress():
-                    data.append(customer)
-            self.showCustomers(data)
-            messagebox.showinfo("Message", "Found " + str(len(data)) + " results!")
+            self.__customers = self.__sqlConnection.searchCustomerByAddress(address)
+            self.showCustomers(self.__customers)
+            messagebox.showinfo("Message", "Found " + str(len(self.__customers)) + " results!")
         elif table == 2:
             self.removeAllEmployees()
-            for employee in self.__employees:
-                if address in employee.getAddress():
-                    data.append(employee)
-            self.showEmployees(data)
-            messagebox.showinfo("Message", "Found " + str(len(data)) + " results!")
+            self.__employees = self.__sqlConnection.searchEmployeeByAddress(address)
+            self.showEmployees(self.__employees)
+            messagebox.showinfo("Message", "Found " + str(len(self.__employees)) + " results!")
 
     def searchByPhoneNumberCallBack(self, phoneNumber, table):
-        data = []
         if table == 1:
             self.removeAllCustomers()
-            for customer in self.__customers:
-                if phoneNumber in customer.getPhoneNumber():
-                    data.append(customer)
-            self.showCustomers(data)
+            self.__customers = self.__sqlConnection.searchCustomerByPhoneNumber(phoneNumber)
+            self.showCustomers(self.__customers)
+            messagebox.showinfo("Message", "Found " + str(len(self.__customers)) + " results!")
         elif table == 2:
             self.removeAllEmployees()
-            for employee in self.__employees:
-                if phoneNumber in employee.getPhoneNumber():
-                    data.append(employee)
-            self.showEmployees(data)
+            self.__employees = self.__sqlConnection.searchEmployeeByPhoneNumber(phoneNumber)
+            self.showEmployees(self.__employees)
+            messagebox.showinfo("Message", "Found " + str(len(self.__employees)) + " results!")
 
     def sortByIdCallBack(self, table):
         if table == 1:
-            data = sorted(self.__customers, key=lambda x: x.getId())
-            self.showCustomers(data)
+            self.__customers = sorted(self.__customers, key=lambda x: x.getId())
+            self.showCustomers(self.__customers)
         elif table == 2:
-            data = sorted(self.__employees, key=lambda x: x.getId())
-            self.showEmployees(data)
+            self.__employees = sorted(self.__employees, key=lambda x: x.getId())
+            self.showEmployees(self.__employees)
         elif table == 3:
-            data = sorted(self.__items, key=lambda x: x.getId())
-            self.showItems(data)
+            self.__items = sorted(self.__items, key=lambda x: x.getId())
+            self.showItems(self.__items)
         else:
-            data = sorted(self.__transactions, key=lambda x: x.getId())
-            self.showTransactions(data)
+            self.__transactions = sorted(self.__transactions, key=lambda x: x.getId())
+            self.showTransactions(self.__transactions)
 
     def sortByFullNameCallBack(self, table):
         if table == 1:
-            data = sorted(self.__customers, key=lambda x: x.getFullName())
-            self.showCustomers(data)
+            self.__customers = sorted(self.__customers, key=lambda x: x.getFullName())
+            self.showCustomers(self.__customers)
         elif table == 2:
-            data = sorted(self.__employees, key=lambda x: x.getFullName())
-            self.showEmployees(data)
+            self.__employees = sorted(self.__employees, key=lambda x: x.getFullName())
+            self.showEmployees(self.__employees)
 
     def sortByAddressCallBack(self, table):
         if table == 1:
-            data = sorted(self.__customers, key=lambda x: x.getAddress())
-            self.showCustomers(data)
+            self.__customers = sorted(self.__customers, key=lambda x: x.getAddress())
+            self.showCustomers(self.__customers)
         elif table == 2:
-            data = sorted(self.__employees, key=lambda x: x.getAddress())
-            self.showEmployees(data)
+            self.__employees = sorted(self.__employees, key=lambda x: x.getAddress())
+            self.showEmployees(self.__employees)
 
     def sortByPhoneNumberCallBack(self, table):
         if table == 1:
-            data = sorted(self.__customers, key=lambda x: x.getPhoneNumber())
-            self.showCustomers(data)
+            self.__customers = sorted(self.__customers, key=lambda x: x.getPhoneNumber())
+            self.showCustomers(self.__customers)
         elif table == 2:
-            data = sorted(self.__employees, key=lambda x: x.getPhoneNumber())
-            self.showEmployees(data)
+            self.__employees = sorted(self.__employees, key=lambda x: x.getPhoneNumber())
+            self.showEmployees(self.__employees)
 
     # -------------------------------------CUSTOMER-------------------------------------
 
     def btnAddCustomerActionPerformed(self):
+        self.btnRefreshCustomerActionPerformed()
         AddCustomerDialog(self, self.__rootWindow, self.__customers)
 
     def btnEditCustomerActionPerformed(self):
@@ -525,6 +505,7 @@ class HomeFrm:
         SearchCustomerDialog(self, self.__rootWindow)
 
     def btnRefreshCustomerActionPerformed(self):
+        self.__customers = self.__sqlConnection.readCustomerTable()
         self.showCustomers(self.__customers)
 
     def btnSortCustomerActionPerformed(self):
@@ -579,6 +560,7 @@ class HomeFrm:
     # -------------------------------------EMPLOYEE-------------------------------------
 
     def btnAddEmployeeActionPerformed(self):
+        self.btnRefreshEmployeeActionPerformed()
         AddEmployeeDialog(self, self.__rootWindow, self.__employees)
 
     def btnEditEmployeeActionPerformed(self):
@@ -604,6 +586,7 @@ class HomeFrm:
         SearchEmployeeDialog(self, self.__rootWindow)
 
     def btnRefreshEmployeeActionPerformed(self):
+        self.__employees = self.__sqlConnection.readEmployeeTable()
         self.showEmployees(self.__employees)
 
     def btnSortEmployeeActionPerformed(self):
@@ -632,15 +615,14 @@ class HomeFrm:
                                   ))
 
     def searchBySalaryCallBack(self, salary):
-        data = []
-        for employee in self.__employees:
-            if employee.getSalary() == int(salary):
-                data.append(employee)
-        self.showEmployees(data)
+        self.removeAllEmployees()
+        self.__employees = self.__sqlConnection.searchEmployeeBySalary(salary)
+        self.showEmployees(self.__employees)
+        messagebox.showinfo("Message", "Found " + str(len(self.__employees)) + " results!")
 
     def sortBySalaryCallBack(self):
-        data = sorted(self.__employees, key=lambda x: x.getSalary())
-        self.showEmployees(data)
+        self.__employees = sorted(self.__employees, key=lambda x: x.getSalary())
+        self.showEmployees(self.__employees)
 
     def removeAllEmployees(self):
         for row in self.__tblEmployee.get_children():
@@ -672,6 +654,7 @@ class HomeFrm:
     # -------------------------------------ITEM-------------------------------------
 
     def btnAddItemActionPerformed(self):
+        self.btnRefreshItemActionPerformed()
         AddItemDialog(self, self.__rootWindow, self.__items)
 
     def btnEditItemActionPerformed(self):
@@ -697,22 +680,23 @@ class HomeFrm:
         SearchItemDialog(self, self.__rootWindow)
 
     def btnRefreshItemActionPerformed(self):
+        self.__items = self.__sqlConnection.readItemTable()
         self.showItems(self.__items)
 
     def btnSortItemActionPerformed(self):
         SortItemDialog(self, self.__rootWindow)
 
     def sortByNameCallBack(self):
-        data = sorted(self.__items, key=lambda x: x.getName())
-        self.showItems(data)
+        self.__items = sorted(self.__items, key=lambda x: x.getName())
+        self.showItems(self.__items)
 
     def sortByBrandCallBack(self):
-        data = sorted(self.__items, key=lambda x: x.getBrand())
-        self.showItems(data)
+        self.__items = sorted(self.__items, key=lambda x: x.getBrand())
+        self.showItems(self.__items)
 
     def sortByPriceCallBack(self):
-        data = sorted(self.__items, key=lambda x: x.getPrice())
-        self.showItems(data)
+        self.__items = sorted(self.__items, key=lambda x: x.getPrice())
+        self.showItems(self.__items)
 
     def addItemCallBack(self, item):
         self.__items.append(item)
@@ -736,20 +720,21 @@ class HomeFrm:
 
     def searchByNameCallBack(self, name):
         self.removeAllItems()
-        data = []
-        for item in self.__items:
-            if name in item.getName():
-                data.append(item)
-        self.showItems(data)
-        messagebox.showinfo("Message", "Found " + str(len(data)) + " results!")
+        self.__items = self.__sqlConnection.searchItemByName(name)
+        self.showItems(self.__items)
+        messagebox.showinfo("Message", "Found " + str(len(self.__items)) + " results!")
 
     def searchByBrandCallBack(self, brand):
         self.removeAllItems()
-        data = []
-        for item in self.__items:
-            if brand in item.getBrand():
-                data.append(item)
-        self.showItems(data)
+        self.__items = self.__sqlConnection.searchItemByBrand(brand)
+        self.showItems(self.__items)
+        messagebox.showinfo("Message", "Found " + str(len(self.__items)) + " results!")
+
+    def searchByPriceCallBack(self, price):
+        self.removeAllItems()
+        self.__items = self.__sqlConnection.searchItemByPrice(price)
+        self.showItems(self.__items)
+        messagebox.showinfo("Message", "Found " + str(len(self.__items)) + " results!")
 
     def removeAllItems(self):
         for row in self.__tblItem.get_children():
@@ -780,6 +765,10 @@ class HomeFrm:
     # -------------------------------------TRANSACTION-------------------------------------
 
     def btnAddTransactionActionPerformed(self):
+        self.btnRefreshItemActionPerformed()
+        self.btnRefreshEmployeeActionPerformed()
+        self.btnRefreshCustomerActionPerformed()
+        self.btnRefreshTransactionActionPerformed()
         AddTransactionDialog(self, self.__rootWindow, self.__customers, self.__items, self.__employees)
 
     def btnEditTransactionActionPerformed(self):
@@ -795,7 +784,7 @@ class HomeFrm:
         if not self.__tblTransaction.selection():
             messagebox.showerror("Error", "Please select a row to delete")
         else:
-            response = messagebox.askyesno("Confirm", "Do you really want to remove this item?")
+            response = messagebox.askyesno("Confirm", "Do you really want to remove this transaction?")
             if response == 1:
                 index = int(self.__tblTransaction.selection()[0])
                 self.__sqlConnection.deleteTransaction(self.__transactions[index].getId())
@@ -806,6 +795,7 @@ class HomeFrm:
         SearchTransactionDialog(self, self.__rootWindow)
 
     def btnRefreshTransactionActionPerformed(self):
+        self.__transactions = self.__sqlConnection.readTransactionTable()
         self.showTransactions(self.__transactions)
 
     def btnSortTransactionActionPerformed(self):
@@ -840,39 +830,30 @@ class HomeFrm:
 
     def searchByCustomerIdCallBack(self, customerId):
         self.removeAllTransactions()
-        data = []
-        for transaction in self.__transactions:
-            if transaction.getCustomer().getId() == int(customerId):
-                data.append(transaction)
-        self.showTransactions(data)
+        self.__transactions = self.__sqlConnection.searchTransactionByCustomerId(customerId)
+        self.showTransactions(self.__transactions)
 
     def searchByItemIdCallBack(self, itemId):
         self.removeAllTransactions()
-        data = []
-        for transaction in self.__transactions:
-            if transaction.getItem().getId() == int(itemId):
-                data.append(transaction)
-        self.showTransactions(data)
+        self.__transactions = self.__sqlConnection.searchTransactionByItemId(itemId)
+        self.showTransactions(self.__transactions)
 
     def searchByEmployeeIdCallBack(self, employeeId):
         self.removeAllTransactions()
-        data = []
-        for transaction in self.__transactions:
-            if transaction.getEmployee().getId() == int(employeeId):
-                data.append(transaction)
-        self.showTransactions(data)
+        self.__transactions = self.__sqlConnection.searchTransactionByEmployeeId(employeeId)
+        self.showTransactions(self.__transactions)
 
     def sortByCustomerIdCallBack(self):
-        data = sorted(self.__transactions, key=lambda x: x.getCustomer().getId())
-        self.showTransactions(data)
+        self.__transactions = sorted(self.__transactions, key=lambda x: x.getCustomer().getId())
+        self.showTransactions(self.__transactions)
 
     def sortByItemIdCallBack(self):
-        data = sorted(self.__transactions, key=lambda x: x.getItem().getId())
-        self.showTransactions(data)
+        self.__transactions = sorted(self.__transactions, key=lambda x: x.getItem().getId())
+        self.showTransactions(self.__transactions)
 
     def sortByEmployeeIdCallBack(self):
-        data = sorted(self.__transactions, key=lambda x: x.getEmployee().getId())
-        self.showTransactions(data)
+        self.__transactions = sorted(self.__transactions, key=lambda x: x.getEmployee().getId())
+        self.showTransactions(self.__transactions)
 
     def removeAllTransactions(self):
         for row in self.__tblTransaction.get_children():

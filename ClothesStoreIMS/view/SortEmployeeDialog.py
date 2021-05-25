@@ -96,6 +96,5 @@ class SortEmployeeDialog:
         else:
             self.__parent.sortBySalaryCallBack()
 
-
     def btnCancelActionPerformed(self):
         self.__sortEmployeeWindow.destroy()

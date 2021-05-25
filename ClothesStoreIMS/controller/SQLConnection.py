@@ -163,3 +163,235 @@ class SQLConnection:
                transaction.getId())
         self.__cursor.execute(sql, val)
         self.__database.commit()
+
+    def searchCustomerById(self, customerId):
+        self.__customers = []
+        sql = "SELECT * FROM customers WHERE id = %s"
+        val = (customerId,)
+        self.__cursor.execute(sql, val)
+        records = self.__cursor.fetchall()
+        for row in records:
+            customer = Customer(str(row[0]), row[1], row[2], row[3])
+            self.__customers.append(customer)
+        return self.__customers
+
+    def searchCustomerByFullName(self, fullName):
+        self.__customers = []
+        sql = "SELECT * FROM customers WHERE fullName LIKE %s"
+        val = ("%" + fullName + "%",)
+        self.__cursor.execute(sql, val)
+        records = self.__cursor.fetchall()
+        for row in records:
+            customer = Customer(str(row[0]), row[1], row[2], row[3])
+            self.__customers.append(customer)
+        return self.__customers
+
+    def searchCustomerByAddress(self, address):
+        self.__customers = []
+        sql = "SELECT * FROM customers WHERE address LIKE %s"
+        val = ("%" + address + "%",)
+        self.__cursor.execute(sql, val)
+        records = self.__cursor.fetchall()
+        for row in records:
+            customer = Customer(str(row[0]), row[1], row[2], row[3])
+            self.__customers.append(customer)
+        return self.__customers
+
+    def searchCustomerByPhoneNumber(self, phoneNumber):
+        self.__customers = []
+        sql = "SELECT * FROM customers WHERE phoneNumber LIKE %s"
+        val = ("%" + phoneNumber + "%",)
+        self.__cursor.execute(sql, val)
+        records = self.__cursor.fetchall()
+        for row in records:
+            customer = Customer(str(row[0]), row[1], row[2], row[3])
+            self.__customers.append(customer)
+        return self.__customers
+
+    def searchEmployeeById(self, employeeId):
+        self.__employees = []
+        sql = "SELECT * FROM employees WHERE id = %s"
+        val = (employeeId,)
+        self.__cursor.execute(sql, val)
+        records = self.__cursor.fetchall()
+        for row in records:
+            employee = Employee(str(row[0]), row[1], row[2], row[3], str(row[4]))
+            self.__employees.append(employee)
+        return self.__employees
+
+    def searchEmployeeByFullName(self, fullName):
+        self.__employees = []
+        sql = "SELECT * FROM employees WHERE fullName LIKE %s"
+        val = ("%" + fullName + "%",)
+        self.__cursor.execute(sql, val)
+        records = self.__cursor.fetchall()
+        for row in records:
+            employee = Employee(str(row[0]), row[1], row[2], row[3], str(row[4]))
+            self.__employees.append(employee)
+        return self.__employees
+
+    def searchEmployeeByAddress(self, address):
+        self.__employees = []
+        sql = "SELECT * FROM employees WHERE address LIKE %s"
+        val = ("%" + address + "%",)
+        self.__cursor.execute(sql, val)
+        records = self.__cursor.fetchall()
+        for row in records:
+            employee = Employee(str(row[0]), row[1], row[2], row[3], str(row[4]))
+            self.__employees.append(employee)
+        return self.__employees
+
+    def searchEmployeeByPhoneNumber(self, phoneNumber):
+        self.__employees = []
+        sql = "SELECT * FROM employees WHERE phoneNumber LIKE %s"
+        val = ("%" + phoneNumber + "%",)
+        self.__cursor.execute(sql, val)
+        records = self.__cursor.fetchall()
+        for row in records:
+            employee = Employee(str(row[0]), row[1], row[2], row[3], str(row[4]))
+            self.__employees.append(employee)
+        return self.__employees
+
+    def searchEmployeeBySalary(self, salary):
+        self.__employees = []
+        sql = "SELECT * FROM employees WHERE salary LIKE %s"
+        val = ("%" + salary + "%",)
+        self.__cursor.execute(sql, val)
+        records = self.__cursor.fetchall()
+        for row in records:
+            employee = Employee(str(row[0]), row[1], row[2], row[3], str(row[4]))
+            self.__employees.append(employee)
+        return self.__employees
+
+    def searchItemById(self, itemId):
+        self.__items = []
+        sql = "SELECT * FROM items WHERE id = %s"
+        val = (itemId,)
+        self.__cursor.execute(sql, val)
+        records = self.__cursor.fetchall()
+        for row in records:
+            item = Item(str(row[0]), row[1], row[2], str(row[3]))
+            self.__items.append(item)
+        return self.__items
+
+    def searchItemByName(self, name):
+        self.__items = []
+        sql = "SELECT * FROM items WHERE name LIKE %s"
+        val = ("%" + name + "%",)
+        self.__cursor.execute(sql, val)
+        records = self.__cursor.fetchall()
+        for row in records:
+            item = Item(str(row[0]), row[1], row[2], str(row[3]))
+            self.__items.append(item)
+        return self.__items
+
+    def searchItemByBrand(self, brand):
+        self.__items = []
+        sql = "SELECT * FROM items WHERE brand LIKE %s"
+        val = ("%" + brand + "%",)
+        self.__cursor.execute(sql, val)
+        records = self.__cursor.fetchall()
+        for row in records:
+            item = Item(str(row[0]), row[1], row[2], str(row[3]))
+            self.__items.append(item)
+        return self.__items
+
+    def searchItemByPrice(self, price):
+        self.__items = []
+        sql = "SELECT * FROM items WHERE price LIKE %s"
+        val = ("%" + price + "%",)
+        self.__cursor.execute(sql, val)
+        records = self.__cursor.fetchall()
+        for row in records:
+            item = Item(str(row[0]), row[1], row[2], str(row[3]))
+            self.__items.append(item)
+        return self.__items
+
+    def searchTransactionById(self, id):
+        self.__transactions = []
+        sql = "SELECT * FROM transactions WHERE id = %s"
+        val = (id,)
+        self.__cursor.execute(sql, val)
+        records = self.__cursor.fetchall()
+        for row in records:
+            id = str(row[0])
+            customerId = str(row[1])
+            itemId = str(row[3])
+            number = str(row[5])
+            employeeId = str(row[7])
+            cIndex = self.__customers.index(Customer(customerId, "", "", ""))
+            iIndex = self.__items.index(Item(itemId, "", "", ""))
+            eIndex = self.__employees. \
+                index(Employee(employeeId, "", "", "", ""))
+            transaction = Transaction(id, self.__customers[cIndex],
+                                      self.__items[iIndex], number,
+                                      self.__employees[eIndex])
+            self.__transactions.append(transaction)
+        return self.__transactions
+
+    def searchTransactionByCustomerId(self, id):
+        self.__transactions = []
+        sql = "SELECT * FROM transactions WHERE customerId = %s"
+        val = (id,)
+        self.__cursor.execute(sql, val)
+        records = self.__cursor.fetchall()
+        for row in records:
+            id = str(row[0])
+            customerId = str(row[1])
+            itemId = str(row[3])
+            number = str(row[5])
+            employeeId = str(row[7])
+            cIndex = self.__customers.index(Customer(customerId, "", "", ""))
+            iIndex = self.__items.index(Item(itemId, "", "", ""))
+            eIndex = self.__employees. \
+                index(Employee(employeeId, "", "", "", ""))
+            transaction = Transaction(id, self.__customers[cIndex],
+                                      self.__items[iIndex], number,
+                                      self.__employees[eIndex])
+            self.__transactions.append(transaction)
+        return self.__transactions
+
+    def searchTransactionByItemId(self, id):
+        self.__transactions = []
+        sql = "SELECT * FROM transactions WHERE itemId = %s"
+        val = (id,)
+        self.__cursor.execute(sql, val)
+        records = self.__cursor.fetchall()
+        for row in records:
+            id = str(row[0])
+            customerId = str(row[1])
+            itemId = str(row[3])
+            number = str(row[5])
+            employeeId = str(row[7])
+            cIndex = self.__customers.index(Customer(customerId, "", "", ""))
+            iIndex = self.__items.index(Item(itemId, "", "", ""))
+            eIndex = self.__employees. \
+                index(Employee(employeeId, "", "", "", ""))
+            transaction = Transaction(id, self.__customers[cIndex],
+                                      self.__items[iIndex], number,
+                                      self.__employees[eIndex])
+            self.__transactions.append(transaction)
+        return self.__transactions
+
+    def searchTransactionByEmployeeId(self, id):
+        self.__transactions = []
+        sql = "SELECT * FROM transactions WHERE employeeId = %s"
+        val = (id,)
+        self.__cursor.execute(sql, val)
+        records = self.__cursor.fetchall()
+        for row in records:
+            id = str(row[0])
+            customerId = str(row[1])
+            itemId = str(row[3])
+            number = str(row[5])
+            employeeId = str(row[7])
+            cIndex = self.__customers.index(Customer(customerId, "", "", ""))
+            iIndex = self.__items.index(Item(itemId, "", "", ""))
+            eIndex = self.__employees. \
+                index(Employee(employeeId, "", "", "", ""))
+            transaction = Transaction(id, self.__customers[cIndex],
+                                      self.__items[iIndex], number,
+                                      self.__employees[eIndex])
+            self.__transactions.append(transaction)
+        return self.__transactions
+

@@ -1,7 +1,5 @@
 import tkinter as tk
 from tkinter import messagebox
-
-from model.Customer import Customer
 from model.Employee import Employee
 
 
